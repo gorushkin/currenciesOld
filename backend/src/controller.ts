@@ -17,7 +17,11 @@ export const onRateHandler = async (req: Request, res: Response) => {
     res.status(400).send('NO!!!!');
     return;
   }
-  const result = await getRate(body.date);
 
-  res.status(200).send(result);
+  try {
+    const result = await getRate(body.date);
+    res.status(200).send(result);
+  } catch (error) {
+    res.status(400).send('Something wrong with your data!!!');
+  }
 };

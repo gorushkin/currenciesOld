@@ -28,7 +28,7 @@ export const getRates = async (range: { start: string; end: string }) => {
 
 export const getRate = async (date: string) => {
 
-  const convertedDate = format(parseDate(date), 'dd/MM/yyyy');
+  // const convertedDate = format(new Date(date), 'dd/MM/yyyy');
 
-  return await dbRates.getRate(convertedDate);
+  return await dbRates.getRate(date);
 };
