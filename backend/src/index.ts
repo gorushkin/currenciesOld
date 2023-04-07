@@ -1,6 +1,6 @@
 import express from 'express';
 import cors from 'cors';
-import { onRequestHanlder } from './controller';
+import { onRatesHandler,  onRateHandler} from './controller';
 import { dbRates } from './rates';
 
 const app = express();
@@ -13,7 +13,9 @@ const init = async (port: number) => {
 
   app.use(express.json());
 
-  app.post('/', onRequestHanlder);
+  app.post('/rates', onRatesHandler);
+  app.post('/rate', onRateHandler);
+  app.use('/', (req, res) => res.send('There is no anything!!!'))
 
   app.listen(port, () => {
     console.log(`app started on port ${port}`);
