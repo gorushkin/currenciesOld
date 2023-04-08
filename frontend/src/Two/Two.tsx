@@ -39,7 +39,7 @@ const CurrentRow = ({ onSuccess }: { onSuccess: (data: Row) => void }) => {
 
   const [date, setDate] = useState('');
   const [isDateValid, setIsDateValid] = useState(false);
-  const [amount, setAmount] = useState(0);
+  const [amount, setAmount] = useState('');
   const [isAmountValid, setIsAmountValid] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -61,8 +61,8 @@ const CurrentRow = ({ onSuccess }: { onSuccess: (data: Row) => void }) => {
   };
 
   const onAmountChangeHanlder = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = Number(e.target.value);
-    if (isNaN(value)) return;
+    const value = e.target.value;
+    if (isNaN(Number(value))) return;
     setAmount(value);
     setIsAmountValid(!!value);
   };
@@ -87,8 +87,8 @@ const CurrentRow = ({ onSuccess }: { onSuccess: (data: Row) => void }) => {
     try {
       const rate = await getRate(date);
       setDate('');
-      setAmount(0);
-      onSuccess({ amount, date, rate });
+      setAmount('');
+      onSuccess({ amount: Number(amount), date, rate });
       setActiveInput(dateInput);
     } catch (error) {
       console.log('error: ', error);
@@ -144,7 +144,8 @@ export const Two = () => {
   const [activeCurrency, setActiveCurrency] = useState<Currency>('USD');
 
   const updateRows = (data: Row) => {
-    navigator.clipboard.writeText((data.rate[activeCurrency].value * data.amount).toString());
+    const result = (data.rate[activeCurrency].value * data.amount).toString().replace('.', ',');
+    navigator.clipboard.writeText(result);
     setRows((state) => [...state, data]);
   };
 

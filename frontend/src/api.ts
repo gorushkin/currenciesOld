@@ -12,23 +12,7 @@ export const getRates = async (range: Range) => {
   return data;
 };
 
-const mockRate: Currencies = {
-  USD: {
-    name: 'US Dollar',
-    value: 83.4097,
-    code: 'USD',
-  },
-  TRY: {
-    name: 'Turkish Lira',
-    value: 5.6816,
-    code: 'TRY',
-  },
-};
-
 export const getRate = async (date: string) => {
-  console.log('date: ', date);
   const { data } = await axios.post(`http://127.0.0.1:3050/rate/`, { date });
-  // console.log('data: ', data);
-
-  return mockRate;
+  return data;
 };
